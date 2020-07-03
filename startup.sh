@@ -1,6 +1,14 @@
 #!/bin/sh
 
 # usage ./startup.sh -4 1.2.3.4 -6 2001:abcd:abcd::1 -p 9993
+export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin
+
+if [ ! -e /dev/net/tun ]; then
+	echo 'FATAL: cannot start ZeroTier One in container: /dev/net/tun not present.'
+	exit 1
+fi
+
+exec "$@"
 
 moon_port=9993 # default ZeroTier moon port
 
